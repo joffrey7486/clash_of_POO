@@ -16,6 +16,7 @@ puts player3.attacks(player2)
 puts player2.show_state
 puts player2.attacks(player3)
 puts player3.show_state
+
 # Player.players_state(player1,player2)
 
 # while player1.life_points>0 && player2.life_points>0
