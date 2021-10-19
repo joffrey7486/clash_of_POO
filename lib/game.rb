@@ -1,31 +1,29 @@
 class Game
     attr_accessor :human_player, :enemies
 
-    def initialize(human_player, enemies)
-        @human_player = HumanPlayer.new(human_name)
+    def initialize(name)
+        @human_player = HumanPlayer.new(name)
         player1 = Player.new("player1")
         player2 = Player.new("player2")
         player3 = Player.new("player3")
         player4 = Player.new("player4")
+        @enemies = []
         @enemies += [player1,player2,player3,player4]
     end    
 
-    def kill_player(Player)
-      @enemies.delete(Player)    
-    end
 
     def is_still_ongoing?
-        is_true=true 
-        if user.life_points > 0 && (enemies[0].life_points > 0 || enemies[1].life_points >0)
-          is_true=true
-        else
-          is_true=false
+        while @human_player.life_points > 0 || enemies == []
+            menu
+            menu_choice(@human_player,enemies)
+            enemies_attack(@human_player, enemies)
+            show_players
         end
-      return is_true
+            end_game(@human_player)
     end
 
     def show_players
-        puts "#{@human_player.name} a #{human_player.life_points}"
+        puts "Tu as #{human_player.life_points}"
         puts "il reste #{@enemies.length} bots, courage!!"
     end
 
@@ -36,63 +34,58 @@ class Game
       puts "s - chercher à se soigner "
       puts "attaquer un joueur en vie :"    
       @enemies.each do |enemy| 
-      puts "#{enemy.index} - #{enemy.name} a 10 points de vie"
+      puts "#{0} - #{enemy.name} a 10 points de vie"
       end
     end
     
-    def menu_choice(user,enemies)
+    def menu_choice(human_player,enemies)
         good_choice = true
         while good_choice == true    
           choice = gets.chomp 
           case choice
-              when "a" then user.search_weapon
+              when "a" then human_player.search_weapon
                 good_choice = false
-              when "s" then user.search_health_pack
+              when "s" then human_player.search_health_pack
                 good_choice = false
-              when "0" then user.attacks(enemies[0])
+              when "0" then human_player.attacks(enemies[0])
                 good_choice = false
-              when "1" then user.attacks(enemies[1])
+              when "1" then human_player.attacks(enemies[1])
                 good_choice = false
-              when "2" then user.attacks(enemies[2])
+              when "2" then human_player.attacks(enemies[2])
               good_choice = false
-              when "3" then user.attacks(enemies[3])
+              when "3" then human_player.attacks(enemies[3])
               good_choice = false
           else
               good_choice = true
               puts "Tu n'as pas appeler la bonne fonction"
           end
-    end
-
-    def user_action(user,enemies)  
-       
-       
+        end
     end
     
-    def enemies_attack(user, enemies)
+    
+    def enemies_attack(human_player, enemies)
         enemies.each do |playerX|
             if playerX.life_points > 0 
-                playerX.attacks(user)
+                playerX.attacks(human_player.name)
+            else 
+                kill_player(playerX)
             end
         end
     end
     
     
-    def end(user)
+    def end_game(human_player)
       puts "La partie est finie" 
-      if user.life_points > 0
+      if human_player.life_points > 0
           puts  "BRAVO ! TU AS GAGNE !"
       else 
           puts "Loser ! Tu as perdu !"
       end
     end
-    
-    
-    def fight_phase(user, enemies)
-        while 
-            user_action(user, enemies)
-            enemies_action(user, enemies)
-        end
-        game_end(user)
+
+    def kill_player(playerX)
+        @enemies.delete(playerX)    
     end
     
+
 end
