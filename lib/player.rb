@@ -7,6 +7,7 @@ class Player
         @life_points = 10
     end
 
+    # Retourne le nom et le nombre de pooint de vie
     def show_state
         puts "#{name} a #{life_points} points de vie !!"
     end
@@ -22,6 +23,8 @@ class Player
         end
     end
 
+
+    # Retourne les damages d'un joueur à un autre 
     def attacks(other_player)
         puts "Le joueur #{name} attaque le joueur #{other_player.name}"
         damage = compute_damage
@@ -29,10 +32,13 @@ class Player
         other_player.gets_damage(damage)
     end
 
+    # définit aléatoirement le nombre entre 1 et 6 de damages 
     def compute_damage
         return rand(1..6) # retour un nombre aléatoire pour les dommages causés
     end
 
+
+    # effectue la méthode sho_state pour les deux joueurs
     def self.players_state(player1,player2)
       puts ""
       puts "Voici l'état de chaque joueur :"
@@ -60,6 +66,7 @@ class HumanPlayer < Player
     rand(1..6) * @weapon_level
     end
 
+    # retourne une arme avec un niveau égal a un nombre, si le nombre est supérieur a celui délà présent, met à jour la nouvelle arme
     def search_weapon
       new_weapon_level = rand(1..6)
       puts "Tu as trouvé une arme de niveau #{new_weapon_level}"
@@ -70,6 +77,7 @@ class HumanPlayer < Player
       end
     end
 
+    # retourne ou non un pack de santé équal a un nombre qui s'ajoute à la vie du joueur, la vie du joueur ne peux pas dépasser 100 points de vie 
     def search_health_pack
         dice_throw = rand(1..6)
         if dice_throw == 1
