@@ -24,9 +24,6 @@ player1 = Player.new("Josiane")
 player2 = Player.new("José")
 enemies = []
 enemies += [player1, player2]
-print enemies[0]
-puts""
-print enemies[1]
 
 
 
@@ -34,11 +31,11 @@ print enemies[1]
 def user_action(user,enemies)  
     puts ""
     puts "Quelle action veux-tu effectuer ?"
-    # puts "a - chercher une meilleure arme"
-    # puts "s - chercher à se soigner "
-    # puts "attaquer un joueur en vue :"    
-    # puts "0 - Josiane a 10 points de vie"
-    # puts "1 - José a 10 points de vie"
+    puts "a - chercher une meilleure arme"
+    puts "s - chercher à se soigner "
+    puts "attaquer un joueur en vue :"    
+    puts "0 - Josiane a 10 points de vie"
+    puts "1 - José a 10 points de vie"
     good_choice = true
     while good_choice == true    
       choice = gets.chomp 
@@ -88,7 +85,4 @@ def fight_phase(user, enemies)
 end
 
 fight_phase(user, enemies)
-
-
-
 
